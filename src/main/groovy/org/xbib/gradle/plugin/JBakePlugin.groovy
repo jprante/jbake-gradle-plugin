@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.champeau.gradle
+package org.xbib.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 
 class JBakePlugin implements Plugin<Project> {
-
 
     public static final String JBAKE = "jbake"
     Project project
@@ -39,7 +38,7 @@ class JBakePlugin implements Plugin<Project> {
 
         addDependenciesAfterEvaluate()
 
-        project.task('jbake', type: JBakeTask, group: 'Documentation', description: 'Bake a jbake project'){
+        project.task('jbake', type: JBakeTask, group: 'Documentation', description: 'Bake a jbake project') {
 
             classpath = configuration
             conventionMapping.input = { project.file("$project.projectDir/$project.jbake.srcDirName") }
@@ -59,14 +58,7 @@ class JBakePlugin implements Plugin<Project> {
     def addDependencies() {
         project.dependencies {
             jbake("org.jbake:jbake-core:${extension.version}")
-
-            if ( new Version(extension.version) > new Version("2.3.0") ){
-                jbake("org.asciidoctor:asciidoctorj:${extension.asciidoctorjVersion}")
-            }
-            else {
-                jbake("org.asciidoctor:asciidoctor-java-integration:${extension.asciidoctorJavaIntegrationVersion}")
-            }
-
+            jbake("org.asciidoctor:asciidoctorj:${extension.asciidoctorjVersion}")
             jbake("org.freemarker:freemarker:${extension.freemarkerVersion}")
             jbake("org.pegdown:pegdown:${extension.pegdownVersion}")
         }

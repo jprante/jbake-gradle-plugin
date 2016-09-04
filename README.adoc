@@ -1,24 +1,25 @@
-= JBake plugin for Gradle image:https://secure.travis-ci.org/jbake-org/jbake-gradle-plugin.png?branch=master["Build Status", link="https://travis-ci.org/jbake-org/jbake-gradle-plugin"]
+= JBake plugin for Gradle
 
 This plugin allows rendering a site using http://www.jbake.org[JBake] directly from http://www.gradle.org[Gradle].
 
 == Usage
-
-*This is work in progress*
 
 [source,groovy]
 ----
 buildscript {
   repositories {
       jcenter()
+      maven {
+          url "http://xbib.org/repository"
+      }
   }
 
   dependencies {
-    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
+    classpath 'org.xbib.gradle.plugin:jbake-gradle-plugin:1.0'
   }
 }
 
-apply plugin: 'me.champeau.jbake'
+apply plugin: 'org.xbib.gradle.jbake'
 ----
 
 This will add a `jbake` task to your build, which will search for a standard http://www.jbake.org[JBake] source tree in

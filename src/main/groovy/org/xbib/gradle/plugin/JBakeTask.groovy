@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.champeau.gradle
+package org.xbib.gradle.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.Configuration
@@ -25,9 +25,12 @@ import org.gradle.api.tasks.TaskAction
 import java.lang.reflect.Constructor
 
 class JBakeTask extends DefaultTask {
-    @InputDirectory File input
-    @OutputDirectory File output
-    @Input Map<String, Object> configuration = [:]
+    @InputDirectory
+    File input
+    @OutputDirectory
+    File output
+    @Input
+    Map<String, Object> configuration = [:]
     boolean clearCache
 
     Configuration classpath
@@ -44,22 +47,22 @@ class JBakeTask extends DefaultTask {
     }
 
     private def createJbake() {
-        if ( !jbake ) {
+        if (!jbake) {
             jbake = new JBakeProxyImpl(delegate: loadOvenDynamic(), input: getInput(), output: getOutput(), clearCache: getClearCache())
         }
     }
 
-    private def mergeConfiguration(){
+    private def mergeConfiguration() {
 
         //config = new CompositeConfiguration([createMapConfiguration(), jbake.getConfig()])
         def delegate = loadClass('org.apache.commons.configuration.CompositeConfiguration')
         Constructor constructor = delegate.getConstructor(Collection)
         def config = constructor.newInstance([createMapConfiguration(), jbake.getConfig()])
-        jbake.setConfig( config )
+        jbake.setConfig(config)
 
     }
 
-    private def createMapConfiguration(){
+    private def createMapConfiguration() {
         def delegate = loadClass('org.apache.commons.configuration.MapConfiguration')
         Constructor constructor = delegate.getConstructor(Map)
         constructor.newInstance(getConfiguration())
