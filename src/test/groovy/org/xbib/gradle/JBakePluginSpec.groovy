@@ -63,8 +63,8 @@ class JBakePluginSpec extends Specification {
 
         where:
         group             | name                           | version
-        'org.jbake'       | 'jbake-core'                   | '2.4.0'
-        'org.freemarker'  | 'freemarker'                   | '2.3.20'
+        'org.jbake'       | 'jbake-core'                   | '2.5.0'
+        'org.freemarker'  | 'freemarker'                   | '2.3.24'
         'org.pegdown'     | 'pegdown'                      | '1.6.0'
         'org.asciidoctor' | 'asciidoctorj'                 | '1.5.4.1'
 
@@ -73,14 +73,14 @@ class JBakePluginSpec extends Specification {
     def "set dependency version by extension"(){
 
         given:
-        project.jbake.version = '2.4.0'
+        project.jbake.version = '2.5.0'
 
         when:
         project.evaluate()
 
         then:
         project.configurations.jbake.dependencies.find {
-            it.name == 'jbake-core' && it.version == '2.4.0'
+            it.name == 'jbake-core' && it.version == '2.5.0'
         }
 
     }
@@ -88,7 +88,7 @@ class JBakePluginSpec extends Specification {
     def "find asciidoctorj"(){
 
         given:
-        project.jbake.version = '2.4.0'
+        project.jbake.version = '2.5.0'
 
         when:
         project.evaluate()

@@ -1,37 +1,17 @@
 
-ext {
-    user = 'xbib'
-    name = 'gradle-plugin-jbake'
-    pluginDescription = 'Gradle plugin for jbake'
-    scmUrl = 'https://github.com/' + user + '/' + name
-    scmConnection = 'scm:git:git://github.com/' + user + '/' + name + '.git'
-    scmDeveloperConnection = 'scm:git:git://github.com/' + user + '/' + name + '.git'
-}
-
-buildscript {
-  repositories {
-    jcenter()
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath 'com.gradle.publish:plugin-publish-plugin:0.9.4'
-    classpath 'co.riiid:gradle-github-plugin:0.4.2'
-  }
+plugins {
+    id "com.gradle.plugin-publish" version "0.9.6"
 }
 
 group = 'org.xbib.gradle.plugin'
-version = '1.1.0'
+version = '1.2.0'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'co.riiid.gradle'
 apply plugin: "com.gradle.plugin-publish"
 
 repositories {
-    mavenLocal()
     mavenCentral()
     jcenter()
 }
@@ -42,7 +22,7 @@ configurations {
 
 dependencies {
     compile gradleApi()
-    compileOnly 'org.jbake:jbake-core:2.4.0'
+    compileOnly 'org.jbake:jbake-core:2.5.0'
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
         exclude group:'org.codehaus.groovy'
     }
@@ -69,7 +49,7 @@ if (project.hasProperty('signing.keyId')) {
     }
 }
 
-apply from: 'gradle/git.gradle'
+apply from: 'gradle/ext.gradle'
 apply from: 'gradle/publish.gradle'
 
 
@@ -80,10 +60,10 @@ if (project.hasProperty('gradle.publish.key')) {
         plugins {
             jbakePlugin {
                 id = 'org.xbib.gradle.plugin.jbake'
-                description = pluginDescription
+                version = project.version
+                description = projectDescription
                 displayName = 'Gradle JBake plugin'
                 tags = ['jbake']
-                version = project.version
             }
         }
     }

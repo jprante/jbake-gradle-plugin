@@ -1,5 +1,5 @@
 
-task xbibUpload(type: Upload) {
+task xbibUpload(type: Upload, dependsOn: build) {
     configuration = configurations.archives
     uploadDescriptor = true
     repositories {
@@ -14,7 +14,7 @@ task xbibUpload(type: Upload) {
     }
 }
 
-task sonatypeUpload(type: Upload) {
+task sonatypeUpload(type: Upload, dependsOn: build) {
     configuration = configurations.archives
     uploadDescriptor = true
     repositories {
@@ -28,8 +28,11 @@ task sonatypeUpload(type: Upload) {
                         authentication(userName: ossrhUsername, password: ossrhPassword)
                 }
                 pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
                     name project.name
-                    description pluginDescription
+                    description projectDescription
                     packaging 'jar'
                     inceptionYear '2015'
                     url scmUrl

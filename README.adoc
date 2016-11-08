@@ -7,7 +7,7 @@ This plugin allows rendering a site using http://www.jbake.org[JBake] directly f
 [source,groovy]
 ----
 plugins {
-  id 'org.xbib.gradle.plugin.jbake' version '1.1.0'
+  id 'org.xbib.gradle.plugin.jbake' version '1.2.0'
 }
 ----
 
@@ -23,7 +23,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'org.xbib.gradle.plugin:gradle-plugin-jbake:1.1.0'
+    classpath 'org.xbib.gradle.plugin:gradle-plugin-jbake:1.2.0'
   }
 }
 
@@ -52,11 +52,11 @@ The Version could be changed too:
 [source,groovy]
 ----
 jbake {
-    version  = '2.4.0'
+    version  = '2.5.0'
 }
 ----
 
-The default is 2.4.0.
+The default is 2.5.0.
 
 === Render Engine configuration
 
@@ -67,7 +67,7 @@ Jbake uses three engines. The library versions could be changed too:
 jbake {
 
     pegdownVersion = '1.6.0'
-    freemarkerVersion = '2.3.20'
+    freemarkerVersion = '2.3.24'
     asciidoctorjVersion = '1.5.4.1'
 }
 ----
